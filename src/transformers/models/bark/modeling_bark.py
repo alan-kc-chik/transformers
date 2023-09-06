@@ -1586,4 +1586,13 @@ class BarkModel(BarkPreTrainedModel):
             # Offload codec_model to CPU
             self.codec_model_hook.offload()
 
+        full_generation = {
+            "semantic_prompt": semantic_output,
+            "coarse_prompt": coarse_output,
+            "fine_prompt": output,
+        }
+        if "output_full" in kwargs:
+            if kwargs["output_full"]:
+                return full_generation, audio
+
         return audio
