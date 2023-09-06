@@ -1473,6 +1473,7 @@ class BarkModel(BarkPreTrainedModel):
         self,
         input_ids: Optional[torch.Tensor] = None,
         history_prompt: Optional[Dict[str, torch.Tensor]] = None,
+        output_full: bool = False,
         **kwargs,
     ) -> torch.LongTensor:
         """
@@ -1591,8 +1592,7 @@ class BarkModel(BarkPreTrainedModel):
             "coarse_prompt": coarse_output,
             "fine_prompt": output,
         }
-        if "output_full" in kwargs:
-            if kwargs["output_full"]:
-                return full_generation, audio
+        if output_full:
+            return full_generation, audio
 
         return audio
